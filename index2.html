@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Phone Balance: Use and Misuse</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Load Lucide icons for aesthetics -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        /* Custom font for a modern look */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f4f8; /* Light blue-gray background */
+            color: #1f2937;
+        }
+        .section-header {
+            border-bottom: 4px solid #10b981; /* Emerald border for focus */
+            padding-bottom: 0.5rem;
+            margin-bottom: 2rem;
+            display: inline-block; /* Makes the border only cover the text width */
+        }
+        .card {
+            transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(16, 185, 129, 0.2); /* Emerald shadow on hover */
+        }
+        /* Style for the icon container */
+        .icon-box {
+            background-color: #ecfdf5;
+            color: #059669;
+        }
+        /* Custom styling for interactive list items */
+        .interactive-list-item {
+            position: relative;
+            padding-left: 2rem;
+            border-left: 3px solid transparent;
+            transition: border-left 0.3s ease-in-out, background-color 0.3s ease-in-out;
+        }
+        .interactive-list-item:hover {
+            border-left: 3px solid #10b981;
+            background-color: #f0fff4;
+        }
+        .interactive-list-item::before {
+            content: "";
+            position: absolute;
+            left: -1px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: #10b981;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .interactive-list-item:hover::before {
+            opacity: 1;
+        }
+
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Header & Navigation -->
+    <header class="bg-white shadow-xl sticky top-0 z-20">
+        <nav class="container mx-auto p-4 flex justify-between items-center max-w-7xl">
+            <a href="#hero" class="text-2xl font-extrabold text-emerald-600 hover:text-emerald-800 transition duration-300">
+                <i data-lucide="smartphone" class="w-6 h-6 inline mr-2 align-text-bottom"></i>The Phone Balance
+            </a>
+            <div class="flex space-x-6">
+                <!-- Restored PPT View link in the navigation bar -->
+                <a href="#ppt-viewer" class="text-gray-600 hover:text-emerald-500 transition duration-300 hidden sm:inline font-medium">PPT View</a>
+                <a href="#benefits" class="text-gray-600 hover:text-emerald-500 transition duration-300 hidden sm:inline font-medium">Benefits</a>
+                <a href="#misuse" class="text-gray-600 hover:text-emerald-500 transition duration-300 hidden sm:inline font-medium">Misuse</a>
+                <a href="#responsible" class="text-gray-600 hover:text-emerald-500 transition duration-300 hidden sm:inline font-medium">Habits</a>
+                <a href="#team" class="text-gray-600 hover:text-emerald-500 transition duration-300 hidden sm:inline font-medium">Team</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Hero Section -->
+    <section id="hero" class="bg-gray-800 text-white py-20 md:py-36 rounded-b-[40px] shadow-2xl relative overflow-hidden">
+        <!-- Background Waves/Patterns (For visual interest) -->
+        <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(white, rgba(255, 255, 255, 0.2) 2px, transparent 40px), radial-gradient(white, rgba(255, 255, 255, 0.15) 1px, transparent 30px), radial-gradient(white, rgba(255, 255, 255, 0.1) 2px, transparent 40px); background-size: 50px 50px, 60px 60px, 40px 40px;"></div>
+        
+        <div class="container mx-auto px-6 max-w-5xl text-center relative z-10">
+            <h2 class="text-5xl md:text-7xl font-extrabold mb-4 leading-tight bg-clip-text text-transparent" style="background-image: linear-gradient(to right, #6ee7b7, #10b981, #059669);">
+                Use and Misuse of Phones
+            </h2>
+            <p class="text-2xl md:text-3xl text-emerald-300 mb-8 font-light italic">
+                Mastering the device that connects us to the world.
+            </p>
+            <p class="text-gray-300 text-lg max-w-2xl mx-auto">
+                This presentation examines the effective utilization of phones and the potential misuses associated with them. We'll explore their profound impact on communication, productivity, and mental health, providing actionable insights for promoting responsible phone usage in daily life.
+            </p>
+        </div>
+    </section>
+
+    <!-- New Section: PPT Viewer -->
+    <section id="ppt-viewer" class="py-16 md:py-24 bg-gray-100">
+        <div class="container mx-auto px-6 max-w-7xl">
+            <h3 class="text-3xl md:text-4xl font-bold text-gray-800 section-header">
+                View Original Presentation
+            </h3>
+            <div class="bg-white p-6 rounded-2xl shadow-xl text-center">
+                
+                <!-- Toggle Button -->
+                <button 
+                    onclick="togglePPTViewer()" 
+                    id="toggle-ppt-button"
+                    class="px-8 py-3 mb-8 text-xl font-semibold rounded-lg text-white bg-emerald-600 hover:bg-emerald-700 transition duration-300 shadow-md hover:shadow-lg"
+                >
+                    Show Presentation
+                </button>
+
+                <!-- Iframe Container - Initially Hidden -->
+                <div id="ppt-container" class="hidden mt-4">
+                    <p class="text-lg text-gray-600 mb-6 border-b pb-4">
+                        Action Required: The source for the presentation is currently set to the uploaded file name. If this file is hosted externally, please replace the `src` attribute in the `<iframe>` tag below with the actual web-accessible path to the file.
+                    </p>
+                    <!-- This iframe will display the PDF. Change the src attribute to your hosted file path. -->
+                    <iframe 
+                        id="pdf-frame"
+                        src="Use and Misuse of Phones.pdf" 
+                        class="w-full rounded-xl shadow-inner border border-gray-200"
+                        style="height: 80vh;"
+                        frameborder="0"
+                    ></iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 1. Benefits of Phone Usage -->
+    <section id="benefits" class="py-16 md:py-24 bg-white">
+        <div class="container mx-auto px-6 max-w-7xl">
+            <h3 class="text-3xl md:text-4xl font-bold text-gray-800 section-header">
+                The Good: Benefits of Phone Usage
+            </h3>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Card 1: Enhanced Communication -->
+                <div class="card bg-gray-50 p-6 rounded-2xl shadow-lg border-t-8 border-emerald-400">
+                    <div class="icon-box w-14 h-14 flex items-center justify-center rounded-full mb-4 text-xl">
+                        <i data-lucide="message-square"></i>
+                    </div>
+                    <h4 class="text-xl font-bold text-gray-900 mb-2">Enhanced Communication</h4>
+                    <p class="text-gray-600 text-sm">Smartphones enable instant connection through various channels (calls, texts, video, and social media), bridging geographical distances and maintaining personal and professional relationships globally.</p>
+                </div>
+
+                <!-- Card 2: Access to Information -->
+                <div class="card bg-gray-50 p-6 rounded-2xl shadow-lg border-t-8 border-emerald-400">
+                    <div class="icon-box w-14 h-14 flex items-center justify-center rounded-full mb-4 text-xl">
+                        <i data-lucide="graduation-cap"></i>
+                    </div>
+                    <h4 class="text-xl font-bold text-gray-900 mb-2">Access to Information</h4>
+                    <p class="text-gray-600 text-sm">The entire internet is at our fingertips, providing a wealth of knowledge for continuous learning, professional research, and staying current with global events and news in real-time.</p>
+                </div>
+
+                <!-- Card 3: Productivity Tools -->
+                <div class="card bg-gray-50 p-6 rounded-2xl shadow-lg border-t-8 border-emerald-400">
+                    <div class="icon-box w-14 h-14 flex items-center justify-center rounded-full mb-4 text-xl">
+                        <i data-lucide="briefcase"></i>
+                    </div>
+                    <h4 class="text-xl font-bold text-gray-900 mb-2">Productivity Tools</h4>
+                    <p class="text-gray-600 text-sm">Essential applications for task management, complex scheduling, cloud collaboration, and remote work dramatically boost daily efficiency and organization for professionals and students alike.</p>
+                </div>
+
+                <!-- Card 4: Emergency Assistance -->
+                <div class="card bg-gray-50 p-6 rounded-2xl shadow-lg border-t-8 border-emerald-400">
+                    <div class="icon-box w-14 h-14 flex items-center justify-center rounded-full mb-4 text-xl">
+                        <i data-lucide="siren"></i>
+                    </div>
+                    <h4 class="text-xl font-bold text-gray-900 mb-2">Emergency Assistance</h4>
+                    <p class="text-gray-600 text-sm">In critical situations, phones are a reliable lifeline for immediate help (emergency calls), GPS navigation, and accurate location sharing, ensuring personal safety and security in unfamiliar environments.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2. Negative Impacts of Phone Misuse -->
+    <section id="misuse" class="bg-red-50 py-16 md:py-24">
+        <div class="container mx-auto px-6 max-w-7xl">
+            <h3 class="text-3xl md:text-4xl font-bold text-gray-800 section-header" style="border-bottom-color: #ef4444;">
+                The Bad: Negative Impacts of Misuse
+            </h3>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Card 1: Distraction and Reduced Focus -->
+                <div class="card bg-white p-6 rounded-2xl shadow-lg border-t-8 border-red-500">
+                    <div class="icon-box w-14 h-14 flex items-center justify-center rounded-full mb-4 bg-red-100 text-red-700 text-xl">
+                        <i data-lucide="eye-off"></i>
+                    </div>
+                    <h4 class="text-xl font-bold text-gray-900 mb-2">Reduced Focus</h4>
+                    <p class="text-gray-600 text-sm">Constant notifications and the temptation of endless content destroy concentration, leading to fragmented attention spans and significantly impacting productivity in work and academic study.</p>
+                </div>
+
+                <!-- Card 2: Social Isolation -->
+                <div class="card bg-white p-6 rounded-2xl shadow-lg border-t-8 border-red-500">
+                    <div class="icon-box w-14 h-14 flex items-center justify-center rounded-full mb-4 bg-red-100 text-red-700 text-xl">
+                        <i data-lucide="user-x"></i>
+                    </div>
+                    <h4 class="text-xl font-bold text-gray-900 mb-2">Social Isolation</h4>
+                    <p class="text-gray-600 text-sm">Over-reliance on digital interactions can replace genuine, face-to-face connections, leading to feelings of loneliness and social isolation.</p>
+                </div>
+
+                <!-- Card 3: Mental Health Issues -->
+                <div class="card bg-white p-6 rounded-2xl shadow-lg border-t-8 border-red-500">
+                    <div class="icon-box w-14 h-14 flex items-center justify-center rounded-full mb-4 bg-red-100 text-red-700 text-xl">
+                        <i data-lucide="cloud-lightning"></i>
+                    </div>
+                    <h4 class="text-xl font-bold text-gray-900 mb-2">Mental Health Strain</h4>
+                    <p class="text-gray-600 text-sm">Excessive use is frequently linked to anxiety, depression, and low self-esteem due to the pressure of social media comparison and constant exposure to curated perfect lives (FOMO).</p>
+                </div>
+
+                <!-- Card 4: Sleep Disruption -->
+                <div class="card bg-white p-6 rounded-2xl shadow-lg border-t-8 border-red-500">
+                    <div class="icon-box w-14 h-14 flex items-center justify-center rounded-full mb-4 bg-red-100 text-red-700 text-xl">
+                        <i data-lucide="moon-stars"></i>
+                    </div>
+                    <h4 class="text-xl font-bold text-gray-900 mb-2">Sleep Disruption</h4>
+                    <p class="text-gray-600 text-sm">Blue light exposure before bedtime suppresses the production of melatonin, the sleep hormone, which severely interferes with natural circadian rhythms and results in chronic poor sleep quality and daytime fatigue.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. Responsible Phone Usage -->
+    <section id="responsible" class="py-16 md:py-24 bg-white">
+        <div class="container mx-auto px-6 max-w-7xl">
+            <h3 class="text-3xl md:text-4xl font-bold text-gray-800 section-header">
+                The Responsible Way: Better Habits & Strategies
+            </h3>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-10">
+                
+                <!-- Principles Column -->
+                <div class="space-y-6">
+                    <h4 class="text-2xl font-bold text-gray-700 mb-4 border-b pb-2">Core Principles</h4>
+                    <div class="interactive-list-item bg-white p-4 rounded-xl shadow-md border border-gray-100">
+                        <h5 class="font-semibold text-blue-600">Intentional Engagement</h5>
+                        <p class="text-sm text-gray-600">Only pick up your phone when you have a specific, pre-determined purpose (e.g., checking a schedule, replying to a message), actively avoiding mindlessly scrolling through apps.</p>
+                    </div>
+                    <div class="interactive-list-item bg-white p-4 rounded-xl shadow-md border border-gray-100">
+                        <h5 class="font-semibold text-blue-600">Boundary Setting</h5>
+                        <p class="text-sm text-gray-600">Establish "phone-free zones" and times, such as during meals, family time, or in the bedroom 30 minutes before sleep.</p>
+                    </div>
+                    <div class="interactive-list-item bg-white p-4 rounded-xl shadow-md border border-gray-100">
+                        <h5 class="font-semibold text-blue-600">Digital Detoxes</h5>
+                        <p class="text-sm text-gray-600">Schedule periodic, longer breaks (e.g., a weekend afternoon or a full day annually) to fully refresh your mental state and re-engage your focus with real-world activities and relationships.</p>
+                    </div>
+                </div>
+
+                <!-- Tools Column -->
+                <div class="space-y-6">
+                    <h4 class="text-2xl font-bold text-gray-700 mb-4 border-b pb-2">Tools & Features</h4>
+                    <div class="interactive-list-item bg-white p-4 rounded-xl shadow-md border border-gray-100">
+                        <h5 class="font-semibold text-purple-600">Use Focus Modes</h5>
+                        <p class="text-sm text-gray-600">Leverage "Do Not Disturb," "Focus," or "Work" modes to silence all non-essential notifications during critical hours.</p>
+                    </div>
+                    <div class="interactive-list-item bg-white p-4 rounded-xl shadow-md border border-gray-100">
+                        <h5 class="font-semibold text-purple-600">Limit App Notifications</h5>
+                        <p class="text-sm text-gray-600">Turn off notifications for social media and non-critical apps to reduce the constant pull of the device.</p>
+                    </div>
+                    <div class="interactive-list-item bg-white p-4 rounded-xl shadow-md border border-gray-100">
+                        <h5 class="font-semibold text-purple-600">Monitor Screen Time</h5>
+                        <p class="text-sm text-gray-600">Use built-in screen time reports to visualize your usage patterns and set self-imposed limits for specific apps.</p>
+                    </div>
+                </div>
+
+                 <!-- Kids & Future Column -->
+                <div class="space-y-6">
+                    <h4 class="text-2xl font-bold text-gray-700 mb-4 border-b pb-2">Key Considerations</h4>
+                    <div class="interactive-list-item bg-white p-4 rounded-xl shadow-md border border-gray-100">
+                        <h5 class="font-semibold text-emerald-600">Parental Guidance</h5>
+                        <p class="text-sm text-gray-600">For children, establish joint media agreements and utilize parental controls to ensure safe and age-appropriate usage.</p>
+                    </div>
+                    <div class="interactive-list-item bg-white p-4 rounded-xl shadow-md border border-gray-100">
+                        <h5 class="font-semibold text-emerald-600">Critical Literacy</h5>
+                        <p class="text-sm text-gray-600">Develop strong digital literacy skills to critically evaluate sources and distinguish credible information from misinformation, especially on high-speed, algorithm-driven social media platforms.</p>
+                    </div>
+                    <div class="interactive-list-item bg-white p-4 rounded-xl shadow-md border border-gray-100">
+                        <h5 class="font-semibold text-emerald-600">Physical Health</h5>
+                        <p class="text-sm text-gray-600">Remember to practice good posture and take frequent breaks to prevent digital eye strain and "tech neck."</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. Presentation Team Section (Updated Layout for Student Highlight) -->
+    <section id="team" class="bg-gray-800 text-white py-16 md:py-24">
+        <div class="container mx-auto px-6 max-w-7xl">
+            <h3 class="text-3xl md:text-4xl font-bold section-header text-white" style="border-bottom-color: #6ee7b7;">
+                The Team Behind the Presentation
+            </h3>
+            
+            <div class="grid grid-cols-1 md:grid-cols-5 gap-8 items-start">
+                
+                <!-- Coordinator Card (Less prominent color, subtle styling) -->
+                <div class="col-span-1 md:col-span-2 bg-gray-700 p-6 rounded-2xl shadow-xl border-b-4 border-gray-500 h-full">
+                    <div class="icon-box w-16 h-16 flex items-center justify-center rounded-full mb-4 bg-gray-600 text-white mx-auto">
+                        <i data-lucide="user-check" class="w-8 h-8"></i>
+                    </div>
+                    <h4 class="text-xl font-medium text-gray-300 text-center">Coordinator</h4>
+                    <p class="text-2xl font-extrabold text-white text-center mt-2">Prof. Kadlag.G</p>
+                    <p class="text-sm text-gray-400 text-center mt-4">
+                        Guiding the research and structure, ensuring the highest standards of presentation and educational value.
+                    </p>
+                </div>
+
+                <!-- Presenter Cards (Brighter Color and Bolder Text for Highlight) -->
+                <div class="md:col-span-3 grid grid-cols-2 gap-6">
+                    <!-- Presenter 1 -->
+                    <div class="bg-emerald-600 p-4 rounded-xl shadow-lg hover:bg-emerald-500 transition duration-300 border-t-2 border-emerald-400">
+                        <p class="text-xl font-extrabold text-white">Vaishnavi Santosh Bawlekar</p>
+                        <p class="text-sm text-emerald-100 mt-1">Focused on Benefits & Social Media impact.</p>
+                    </div>
+                    <!-- Presenter 2 -->
+                    <div class="bg-emerald-600 p-4 rounded-xl shadow-lg hover:bg-emerald-500 transition duration-300 border-t-2 border-emerald-400">
+                        <p class="text-xl font-extrabold text-white">Pournima Santosh Adsul</p>
+                        <p class="text-sm text-emerald-100 mt-1">Focused on Misuse & Mental Health effects.</p>
+                    </div>
+                    <!-- Presenter 3 -->
+                    <div class="bg-emerald-600 p-4 rounded-xl shadow-lg hover:bg-emerald-500 transition duration-300 border-t-2 border-emerald-400">
+                        <p class="text-xl font-extrabold text-white">Om Ashok Bhawar</p>
+                        <p class="text-sm text-emerald-100 mt-1">Focused on Responsible Habits & Future Trends.</p>
+                    </div>
+                    <!-- Presenter 4 -->
+                    <div class="bg-emerald-600 p-4 rounded-xl shadow-lg hover:bg-emerald-500 transition duration-300 border-t-2 border-emerald-400">
+                        <p class="text-xl font-extrabold text-white">Prashant Babasaheb Badhekar</p>
+                        <p class="text-sm text-emerald-100 mt-1">Focused on Kids Usage & Conclusion Synthesis.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+    <!-- Conclusion -->
+    <section id="conclusion" class="bg-emerald-600 text-white py-12 md:py-20 rounded-t-[40px] shadow-2xl">
+        <div class="container mx-auto px-6 max-w-4xl text-center">
+            <h3 class="text-3xl md:text-4xl font-bold mb-6 text-white">Conclusion: Find Your Balance</h3>
+            <p class="text-xl text-emerald-100 mb-8">
+                The key to a productive relationship with our devices lies in a **Balanced Approach**, recognizing both the incredible utility and the potential pitfalls. Our goal is to use the phone as a tool, not allow it to use us.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-8">
+                <div class="p-4 bg-emerald-700 rounded-xl shadow-lg w-full sm:w-1/2">
+                    <p class="text-2xl font-bold text-white mb-2"><i data-lucide="lightbulb" class="inline w-6 h-6 mr-2"></i>Awareness</p>
+                    <p class="text-emerald-200 text-sm">Empower yourself to make informed, intentional choices about when and how to engage with technology.</p>
+                </div>
+                <div class="p-4 bg-emerald-700 rounded-xl shadow-lg w-full sm:w-1/2">
+                    <p class="text-2xl font-bold text-white mb-2"><i data-lucide="bar-chart-2" class="inline w-6 h-6 mr-2"></i>Intentionality</p>
+                    <p class="text-emerald-200 text-sm">Strive for purposeful use that supports your goals, rather than passive consumption that drains your time and focus.</p>
+                </div>
+            </div>
+            
+            <p class="mt-12 text-emerald-300 text-sm">Thank You for learning about responsible phone use!</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-400 p-4 text-center text-sm">
+        <p>&copy; 2025 Responsible Technology Initiative. All rights reserved.</p>
+    </footer>
+
+    <!-- Initialize Lucide icons -->
+    <script>
+        // Function to toggle the visibility of the PPT viewer
+        function togglePPTViewer() {
+            const container = document.getElementById('ppt-container');
+            const button = document.getElementById('toggle-ppt-button');
+
+            // Toggle the 'hidden' Tailwind class
+            container.classList.toggle('hidden');
+
+            // Update button text
+            if (container.classList.contains('hidden')) {
+                button.textContent = 'Show Presentation';
+            } else {
+                button.textContent = 'Hide Presentation';
+            }
+        }
+        
+        lucide.createIcons();
+    </script>
+</body>
+</html>
